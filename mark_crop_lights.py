@@ -52,8 +52,8 @@ class Mark_Crop:
             '''for recover use'''
             df.to_csv(self.dir_curr + '/crop/log_pos_lights_{}(recover:{}).csv'.format(self.camera, str(df.shape[0])))
         # print('d_pos_lights:', d_pos_lights)
-        del self.img
-        del df
+        del self.img, self.img_hover, self.img_click
+        del df, df_pos_lights
         cv2.destroyAllWindows()
 
     def draw_square(self, event, x, y, flags, param):
@@ -97,7 +97,7 @@ class Mark_Crop:
 '''-----------------------------------------------------------------------------------------------------------------------------------------------------------'''
 
 
-dir_all_images = '/home/flyinstinct/PycharmProjects/light_detection/images'    # "/home/flyinstinct/PycharmProjects/light_detection/images",
+dir_all_images = '/home/flyinstinct/PycharmProjects/images'    # "/home/flyinstinct/PycharmProjects/light_detection/images",
 # os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) + '/images'
 l_camera = sorted([img for img in os.listdir(dir_all_images)])[1:]
 print('l_camera', l_camera)
@@ -156,7 +156,8 @@ def mark_and_crop(i, j):
 
 def main():
     global  num_clicks
-    for i in range(2, 3):  # len(l_camera)
+    '''i-th camera; j-th image of the camera; 0-indexed'''
+    for i in range(3, 4):  # len(l_camera)
         print('************************** NOW  WORKING  ON  THE  CAMERA No.' + str(i) + ' ... ... **************************')
         if cv2.waitKey(0) == 27:
             break
